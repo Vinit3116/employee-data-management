@@ -3,14 +3,17 @@
 const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
 
+// Path to SQLite database file
 const dbPath = path.join(__dirname, "..", "data", "employees.db");
 
+// Connect to SQLite database
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) console.error("DB connection error:", err);
   else console.log("Connected to SQLite DB at", dbPath);
 });
 
-// Table creation: only creates table if it doesn't exist, so old data remains
+// Create employees table if it doesn't exist
+// This ensures old data is preserved and table is ready for CRUD operations
 db.run(
   `CREATE TABLE IF NOT EXISTS employees (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,4 +28,4 @@ db.run(
   }
 );
 
-module.exports = db;
+module.exports = db; // Export DB connection for use in app.js

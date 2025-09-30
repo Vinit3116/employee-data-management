@@ -1,6 +1,7 @@
 /* public/style.css */
 
-/* Background & Card */
+/* ------------------- Body & Card Styles ------------------- */
+/* Sets background, font, and adds subtle card shadows and hover effects */
 body {
   background: #f8f9fa;
   font-family: 'Roboto', sans-serif;
@@ -17,29 +18,24 @@ body {
   box-shadow: 0 1rem 1.5rem rgba(0,0,0,0.15);
 }
 
-/* Table */
+/* ------------------- Table Styles ------------------- */
+/* Styles table, adds row hover effects and sortable indicators */
 .table td, .table th {
   vertical-align: middle;
   position: relative;
   transition: all 0.2s;
 }
 
-/* Table row hover effect */
 .table-hover tbody tr:hover {
   background-color: #e2e6ea;
   transform: translateX(2px);
   transition: all 0.2s;
 }
 
-/* Form input hover & focus */
+/* ------------------- Form & Input Styles ------------------- */
+/* Adds focus/hover effects for inputs and search bar */
 input.form-control:hover,
-input.form-control:focus {
-  border-color: #0d6efd;
-  box-shadow: 0 0 5px rgba(13,110,253,0.3);
-  transition: all 0.2s;
-}
-
-/* Search bar hover & focus */
+input.form-control:focus,
 #searchBar:hover,
 #searchBar:focus {
   border-color: #0d6efd;
@@ -47,7 +43,12 @@ input.form-control:focus {
   transition: all 0.2s;
 }
 
-/* Buttons hover effect */
+input:invalid {
+  border-color: #dc3545; /* highlight invalid inputs in red */
+}
+
+/* ------------------- Buttons ------------------- */
+/* Adds hover scale and shadow effects for buttons */
 .btn,
 .btn-sm {
   transition: transform 0.2s, box-shadow 0.2s;
@@ -59,40 +60,38 @@ input.form-control:focus {
   box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.2);
 }
 
-/* Input invalid */
-input:invalid {
-  border-color: #dc3545;
-}
-
-/* Sorting arrows */
+/* ------------------- Sorting ------------------- */
+/* Styles sorting arrows and adds hover effect on table headers */
 .sort-indicator {
   font-size: 0.9rem;
-  color: #ffffff; /* visible on dark headers */
+  color: #ffffff;
   margin-left: 5px;
   transition: transform 0.2s ease;
 }
 
-/* Hover effect on sortable header */
 th.sortable:hover .sort-indicator {
   transform: scale(1.2);
   cursor: pointer;
 }
 
-/* Highlight matching name text */
+/* ------------------- Search Highlight ------------------- */
+/* Highlights matched search terms in the table */
 .highlight {
-  background-color: #fff3cd; /* subtle yellow highlight */
+  background-color: #fff3cd;
   padding: 0 2px;
   border-radius: 2px;
 }
 
-/* Toast styling */
+/* ------------------- Toast Notifications ------------------- */
+/* Styles toast messages for better visibility */
 .toast-container .toast {
   border-radius: 0.5rem;
   box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.15);
   font-size: 0.9rem;
 }
 
-/* Responsive adjustments */
+/* ------------------- Responsive Adjustments ------------------- */
+/* Makes table and sort indicators more readable on small screens */
 @media (max-width: 768px) {
   .table td, .table th {
     font-size: 0.9rem;

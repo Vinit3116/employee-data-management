@@ -1,6 +1,6 @@
-# 👨‍💻 Employee Manager
+# 👨‍💻 Employee Data Management
 
-A full-stack **Employee Management System** built using **Node.js, Express.js, SQLite3, Bootstrap 5, and Vanilla JavaScript**.\
+A full-stack **Employee Data Management** built using **Node.js, Express.js, SQLite3, Bootstrap 5, and Vanilla JavaScript**.\
 This project demonstrates how to build a **CRUD (Create, Read, Update, Delete)** web application with:
 
 - 🗂 **Backend API** (RESTful with Express + SQLite3)
@@ -45,7 +45,7 @@ This project demonstrates how to build a **CRUD (Create, Read, Update, Delete)**
 
 ## 📝 Project Overview
 
-The **Employee Manager** project is designed to manage employees with the following capabilities:
+The **Employee Data Management** project is designed to manage employees with the following capabilities:
 
 - Add a new employee with **name, email, position, salary**
 
@@ -93,6 +93,21 @@ This is a beginner-friendly project, but structured in a **production-ready mann
 
 ---
 
+## 🧠 Approach & Assumptions
+
+**Approach:**
+
+- Designed a RESTful backend with Express.js and SQLite3.
+- Frontend built with Bootstrap 5 and Vanilla JS for simplicity and responsiveness.
+- Client-side + server-side validation for data integrity.
+
+**Assumptions:**
+
+- Email must end with `.com` or `.in`.
+- Minimum salary: 5000.
+
+---
+
 ## ✨ Features
 
 ### 🔹 Backend (API)
@@ -101,7 +116,7 @@ This is a beginner-friendly project, but structured in a **production-ready mann
 
 - SQLite database with schema:
 
-  `CREATE TABLE employees (
+  `CREATE TABLE IF NOT EXISTS employees (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
   email TEXT NOT NULL UNIQUE,
@@ -144,20 +159,20 @@ This is a beginner-friendly project, but structured in a **production-ready mann
 ```
 employee-manager/
 │
-├── app.js # Express app (routes + middleware)
-├── server.js # Server entry point + static serving
+├── app.js                 # Express app (routes + middleware)
+├── server.js              # Server entry point + static serving
 ├── db/
-│ └── db.js # SQLite3 connection + table creation
+│ └── db.js                # SQLite3 connection + table creation
 ├── public/
-│ ├── index.html # Frontend HTML
-│ ├── style.css # Custom CSS
-│ └── (JS inside HTML) # Inline frontend logic
+│ ├── index.html           # Frontend HTML
+│ ├── style.css            # Custom CSS
+│ └── (JS inside HTML)     # Inline frontend logic
 ├── data/
-│ └── employees.db # SQLite3 database file
+│ └── employees.db         # SQLite3 database file
 ├── tests/
-│ └── employees.test.js # Jest + Supertest tests
+│ └── employees.test.js    # Jest + Supertest tests
 ├── package.json
-└── README.md # Documentation
+└── README.md              # Documentation
 ```
 
 ---
@@ -304,13 +319,16 @@ We use **Jest + Supertest** for automated tests.
 
 Example test (create employee):
 
-`test("POST /api/employees → creates employee", async () => {
-  const res = await request(app)
-    .post("/api/employees")
-    .send({ name: "Alice", email: "alice@test.com", position: "Dev", salary: 5000 });
-  expect(res.statusCode).toBe(201);
-  expect(res.body).toHaveProperty("id");
-});`
+```
+test("POST /api/employees should create employee", async () => {
+    const emp = { name:"Alice", email:"alice@example.com", position:"Manager", salary:50000 };
+    const res = await request(app).post("/api/employees").send(emp);
+    expect(res.statusCode).toBe(201);
+    expect(res.body).toHaveProperty("id");
+    expect(res.body.name).toBe("Alice");
+    expect(res.body.salary).toBe(50000);
+  });
+```
 
 Run tests:
 
@@ -337,6 +355,24 @@ Steps (Render example):
 
 5.  Deploy 🚀
 
+6.  Live Demo Link: https://your-live-link.com
+
+---
+
+## 📸 Screenshots
+
+**1. Employee List Table**  
+![Employee List](screenshots\image.png)
+
+**2. Add Employee Form**  
+![Add Form](screenshots\employee add.png)
+
+**3. Search & Highlight Feature**  
+![Search Highlight](screenshots\highlight.png)
+
+**4. Edit Employee**  
+![Search Highlight](screenshots\editEmployee.png)
+
 ---
 
 ## 🔮 Future Enhancements
@@ -358,5 +394,4 @@ Steps (Render example):
 ## 👨‍💻 Author
 
 **Vinit Patel**\
-B.Tech Electronics & Telecommunication, VIT Pune\
-🔗 [LinkedIn](https://linkedin.com/in/your-profile) | [GitHub](https://github.com/yourusername)
+🔗 [LinkedIn](https://www.linkedin.com/in/vinitpatel31) | [GitHub](https://github.com/Vinit3116)
