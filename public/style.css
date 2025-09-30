@@ -1,0 +1,103 @@
+/* public/style.css */
+
+/* Background & Card */
+body {
+  background: #f8f9fa;
+  font-family: 'Roboto', sans-serif;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 1rem 1.5rem rgba(0,0,0,0.15);
+}
+
+/* Table */
+.table td, .table th {
+  vertical-align: middle;
+  position: relative;
+  transition: all 0.2s;
+}
+
+/* Table row hover effect */
+.table-hover tbody tr:hover {
+  background-color: #e2e6ea;
+  transform: translateX(2px);
+  transition: all 0.2s;
+}
+
+/* Form input hover & focus */
+input.form-control:hover,
+input.form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 5px rgba(13,110,253,0.3);
+  transition: all 0.2s;
+}
+
+/* Search bar hover & focus */
+#searchBar:hover,
+#searchBar:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 5px rgba(13,110,253,0.3);
+  transition: all 0.2s;
+}
+
+/* Buttons hover effect */
+.btn,
+.btn-sm {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn:hover,
+.btn-sm:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.2);
+}
+
+/* Input invalid */
+input:invalid {
+  border-color: #dc3545;
+}
+
+/* Sorting arrows */
+.sort-indicator {
+  font-size: 0.9rem;
+  color: #ffffff; /* visible on dark headers */
+  margin-left: 5px;
+  transition: transform 0.2s ease;
+}
+
+/* Hover effect on sortable header */
+th.sortable:hover .sort-indicator {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+/* Highlight matching name text */
+.highlight {
+  background-color: #fff3cd; /* subtle yellow highlight */
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* Toast styling */
+.toast-container .toast {
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.15);
+  font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .table td, .table th {
+    font-size: 0.9rem;
+  }
+  .sort-indicator {
+    font-size: 0.9rem;
+  }
+}
