@@ -181,9 +181,9 @@ employee-manager/
 
 1.  **Clone the repo**
 
-        `git clone https://github.com/yourusername/employee-manager.git
+        `git clone https://github.com/Vinit3116/employee-data-management
 
-    cd employee-manager`
+    cd employee data management`
 
 2.  **Install dependencies**
 
@@ -362,16 +362,16 @@ Steps (Render example):
 ## 📸 Screenshots
 
 **1. Employee List Table**  
-![Employee List](screenshots\image.png)
+![Employee List](screenshots/image.png)
 
 **2. Add Employee Form**  
-![Add Form](screenshots\employee add.png)
+![Add Form](screenshots/employeeadd.png)
 
 **3. Search & Highlight Feature**  
-![Search Highlight](screenshots\highlight.png)
+![Search Highlight](screenshots/highlight.png)
 
 **4. Edit Employee**  
-![Search Highlight](screenshots\editEmployee.png)
+![Search Highlight](screenshots/editEmployee.png)
 
 ---
 
