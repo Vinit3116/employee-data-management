@@ -141,22 +141,24 @@ This is a beginner-friendly project, but structured in a **production-ready mann
 
 ## 📂 Project Structure
 
-`employee-manager/
+```
+employee-manager/
 │
-├── app.js                # Express app (routes + middleware)
-├── server.js             # Server entry point + static serving
+├── app.js # Express app (routes + middleware)
+├── server.js # Server entry point + static serving
 ├── db/
-│   └── db.js             # SQLite3 connection + table creation
+│ └── db.js # SQLite3 connection + table creation
 ├── public/
-│   ├── index.html        # Frontend HTML
-│   ├── style.css         # Custom CSS
-│   └── (JS inside HTML)  # Inline frontend logic
+│ ├── index.html # Frontend HTML
+│ ├── style.css # Custom CSS
+│ └── (JS inside HTML) # Inline frontend logic
 ├── data/
-│   └── employees.db      # SQLite3 database file
+│ └── employees.db # SQLite3 database file
 ├── tests/
-│   └── employees.test.js # Jest + Supertest tests
+│ └── employees.test.js # Jest + Supertest tests
 ├── package.json
-└── README.md             # Documentation`
+└── README.md # Documentation
+```
 
 ---
 
@@ -164,8 +166,9 @@ This is a beginner-friendly project, but structured in a **production-ready mann
 
 1.  **Clone the repo**
 
-    `git clone https://github.com/yourusername/employee-manager.git
-cd employee-manager`
+        `git clone https://github.com/yourusername/employee-manager.git
+
+    cd employee-manager`
 
 2.  **Install dependencies**
 
