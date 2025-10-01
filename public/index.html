@@ -250,6 +250,22 @@ function renderTable(query="") {
     }).filter(e => e.name.toLowerCase().includes(q));
   }
 
+  /* ------------------- Sorting ------------------- */
+  if(sortField){
+    data.sort((a,b) => {
+      let valA = a[sortField];
+      let valB = b[sortField];
+
+      // Handle string vs number
+      if(typeof valA === "string") valA = valA.toLowerCase();
+      if(typeof valB === "string") valB = valB.toLowerCase();
+
+      if(valA < valB) return sortAsc ? -1 : 1;
+      if(valA > valB) return sortAsc ? 1 : -1;
+      return 0;
+    });
+  }
+
   employeeTable.innerHTML = data.map(e => `
     <tr>
       <td>${e.id}</td>
