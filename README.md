@@ -13,6 +13,8 @@ This project demonstrates how to build a **CRUD (Create, Read, Update, Delete)**
 
 - 🧪 **Automated Tests** (Jest + Supertest)
 
+- **Live Demo Link: https://employee-data-management-jbc1.onrender.com/**
+
 ---
 
 ## 📑 Table of Contents
@@ -165,8 +167,8 @@ employee-manager/
 │ └── db.js                # SQLite3 connection + table creation
 ├── public/
 │ ├── index.html           # Frontend HTML
-│ ├── style.css            # Custom CSS
-│ └── (JS inside HTML)     # Inline frontend logic
+│ └──style.css            # Custom CSS
+│
 ├── data/
 │ └── employees.db         # SQLite3 database file
 ├── tests/
@@ -291,8 +293,9 @@ Content-Type: application/json`
 - **Frontend (Live Validation)**
 
   - Regex for email: `/^[^\s@]+@[^\s@]+\.(com|in)$/i`
-
+  - Email must end with `.com` or `.in`
   - Salary ≥ 5000
+  - Validates on both Add and Edit forms
 
 - **Backend (Express Validator)**
 
@@ -354,8 +357,6 @@ Steps (Render example):
     `node server.js`
 
 5.  Deploy 🚀
-
-6.  Live Demo Link: https://your-live-link.com
 
 ---
 
