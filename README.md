@@ -168,7 +168,6 @@ employee-manager/
 ├── public/
 │ ├── index.html           # Frontend HTML
 │ └──style.css            # Custom CSS
-│
 ├── data/
 │ └── employees.db         # SQLite3 database file
 ├── tests/
