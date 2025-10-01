@@ -9,27 +9,24 @@ app.use(express.json()); // Middleware to parse JSON bodies
 
 /* ------------------- Routes ------------------- */
 
-/* GET all employees
-   Returns a JSON array of all employee records from SQLite database */
+/* GET all employees */
 app.get("/api/employees", (req, res) => {
   db.all("SELECT * FROM employees", [], (err, rows) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(rows);
+    if (err) return res.status(500).json({ ok: false, error: err.message });
+    res.json({ ok: true, data: rows });
   });
 });
 
-/* GET single employee by ID
-   Returns employee object if found, else 404 error */
+/* GET single employee by ID */
 app.get("/api/employees/:id", (req, res) => {
   db.get("SELECT * FROM employees WHERE id=?", [req.params.id], (err, row) => {
-    if (err) return res.status(500).json({ error: err.message });
-    if (!row) return res.status(404).json({ error: "Employee not found" });
-    res.json(row);
+    if (err) return res.status(500).json({ ok: false, error: err.message });
+    if (!row) return res.status(404).json({ ok: false, error: "Employee not found" });
+    res.json({ ok: true, data: row });
   });
 });
 
-/* POST create new employee
-   Validates input using express-validator before inserting into DB */
+/* POST create new employee */
 app.post(
   "/api/employees",
   [
@@ -40,24 +37,28 @@ app.post(
   ],
   (req, res) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+    if (!errors.isEmpty())
+      return res.status(400).json({ ok: false, error: errors.array()[0].msg });
 
     const { name, email, position, salary } = req.body;
     const sql = "INSERT INTO employees (name,email,position,salary) VALUES (?,?,?,?)";
 
-    // Insert employee and return the created record
     db.run(sql, [name, email, position, salary], function (err) {
-      if (err) return res.status(500).json({ error: err.message });
+      if (err) {
+        if (err.code === "SQLITE_CONSTRAINT") {
+          return res.status(400).json({ ok: false, error: "Duplicate email address ❌" });
+        }
+        return res.status(500).json({ ok: false, error: err.message });
+      }
       db.get("SELECT * FROM employees WHERE id=?", [this.lastID], (err, row) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.status(201).json(row);
+        if (err) return res.status(500).json({ ok: false, error: err.message });
+        res.status(201).json({ ok: true, data: row });
       });
     });
   }
 );
 
-/* PUT update employee
-   Validates input and updates employee if exists, else returns 404 */
+/* PUT update employee */
 app.put(
   "/api/employees/:id",
   [
@@ -68,34 +69,38 @@ app.put(
   ],
   (req, res) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+    if (!errors.isEmpty())
+      return res.status(400).json({ ok: false, error: errors.array()[0].msg });
 
     const { name, email, position, salary } = req.body;
     const sql = "UPDATE employees SET name=?, email=?, position=?, salary=? WHERE id=?";
 
     db.run(sql, [name, email, position, salary, req.params.id], function (err) {
-      if (err) return res.status(500).json({ error: err.message });
+      if (err) {
+        if (err.code === "SQLITE_CONSTRAINT") {
+          return res.status(400).json({ ok: false, error: "Duplicate email address ❌" });
+        }
+        return res.status(500).json({ ok: false, error: err.message });
+      }
       if (this.changes === 0)
-        return res.status(404).json({ error: "Employee not found" });
+        return res.status(404).json({ ok: false, error: "Employee not found" });
 
-      // Return the updated record
       db.get("SELECT * FROM employees WHERE id=?", [req.params.id], (err, row) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(row);
+        if (err) return res.status(500).json({ ok: false, error: err.message });
+        res.json({ ok: true, data: row });
       });
     });
   }
 );
 
-/* DELETE employee by ID
-   Deletes the employee if exists, else returns 404 */
+/* DELETE employee by ID */
 app.delete("/api/employees/:id", (req, res) => {
   db.run("DELETE FROM employees WHERE id=?", [req.params.id], function (err) {
-    if (err) return res.status(500).json({ error: err.message });
+    if (err) return res.status(500).json({ ok: false, error: err.message });
     if (this.changes === 0)
-      return res.status(404).json({ error: "Employee not found" });
-    res.json({ message: "Employee deleted successfully" });
+      return res.status(404).json({ ok: false, error: "Employee not found" });
+    res.json({ ok: true, message: "Employee deleted successfully" });
   });
 });
 
-module.exports = app; // Export app for server.js or testing
+module.exports = app;

@@ -232,7 +232,8 @@ function showToast(message, type="success") {
 /* ------------------- Fetch & Render Employees ------------------- */
 async function fetchEmployees(query="") {
   const res = await fetch("/api/employees");
-  employees = await res.json();
+  const result = await res.json();
+  employees = result.data || []; // ✅ backend always sends {ok:true,data:[]}
   renderTable(query);
 }
 
@@ -278,15 +279,20 @@ form.addEventListener("submit", async e => {
     position: document.getElementById("position").value,
     salary: document.getElementById("salary").value
   };
-  const res = await fetch("/api/employees", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(employee) });
-  if(res.ok){
+  const res = await fetch("/api/employees", { 
+    method: "POST", 
+    headers: {"Content-Type":"application/json"}, 
+    body: JSON.stringify(employee) 
+  });
+  const data = await res.json();
+  if(data.ok){
     showToast("Employee added successfully ✅");
     form.reset(); addBtn.disabled = true;
     emailInput.classList.remove("is-valid","is-invalid");
     salaryInput.classList.remove("is-valid","is-invalid");
     fetchEmployees();
   } else {
-    showToast("Error adding employee ❌", "danger");
+    showToast(data.error || "Error adding employee ❌", "danger");
   }
 });
 
@@ -310,13 +316,18 @@ editForm.addEventListener("submit", async e => {
     position: document.getElementById("editPosition").value,
     salary: document.getElementById("editSalary").value
   };
-  const res = await fetch(`/api/employees/${id}`, { method: "PUT", headers: {"Content-Type":"application/json"}, body: JSON.stringify(employee) });
-  if(res.ok){
+  const res = await fetch(`/api/employees/${id}`, { 
+    method: "PUT", 
+    headers: {"Content-Type":"application/json"}, 
+    body: JSON.stringify(employee) 
+  });
+  const data = await res.json();
+  if(data.ok){
     showToast("Employee updated ✏️");
     editModal.hide();
     fetchEmployees();
   } else {
-    showToast("Error updating employee ❌", "danger");
+    showToast(data.error || "Error updating employee ❌", "danger");
   }
 });
 
@@ -324,11 +335,12 @@ editForm.addEventListener("submit", async e => {
 async function deleteEmployee(id){
   if(confirm("Are you sure to delete?")){
     const res = await fetch(`/api/employees/${id}`, { method: "DELETE" });
-    if(res.ok){
+    const data = await res.json();
+    if(data.ok){
       showToast("Employee deleted ❌", "warning");
       fetchEmployees();
     } else {
-      showToast("Error deleting employee", "danger");
+      showToast(data.error || "Error deleting employee", "danger");
     }
   }
 }
