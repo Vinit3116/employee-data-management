@@ -361,8 +361,6 @@ Steps (Render example):
 
 ## 📸 Screenshots
 
-## 📸 Screenshots
-
 **1. Employee List Table**  
 ![Employee List](screenshots/employee-list.png)
 
